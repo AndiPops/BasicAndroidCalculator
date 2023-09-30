@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     DecimalFormat decimalFormat = new DecimalFormat("######.######");
 
+    String history, currentResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                history = tvHistory.getText().toString();
+                currentResult = tvResult.getText().toString();
+                tvHistory.setText(history + currentResult + "+");
                 if (operator) {
                     if (status == "multiplication") multiply();
                     else if (status == "division") divide();
@@ -108,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                history = tvHistory.getText().toString();
+                currentResult = tvResult.getText().toString();
+                tvHistory.setText(history + currentResult + "-");
                 if (operator) {
                     if (status == "sum") plus();
                     else if (status == "multiplication") multiply();
@@ -122,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
         btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                history = tvHistory.getText().toString();
+                currentResult = tvResult.getText().toString();
+                tvHistory.setText(history + currentResult + "*");
                 if (operator) {
                     if (status == "sum") plus();
                     else if (status == "subtraction") minus();
@@ -136,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                history = tvHistory.getText().toString();
+                currentResult = tvResult.getText().toString();
+                tvHistory.setText(history + currentResult + "/");
                 if (operator) {
                     if (status == "sum") plus();
                     else if (status == "subtraction") minus();
