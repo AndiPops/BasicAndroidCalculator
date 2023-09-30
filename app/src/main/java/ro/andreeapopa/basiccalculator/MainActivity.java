@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
     boolean operator = false;
     boolean point = true;
     boolean btnACControl = true;
+    boolean btnEqualsControl = false;
 
     DecimalFormat decimalFormat = new DecimalFormat("######.######");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     else firstNumber = Double.parseDouble(tvResult.getText().toString());
                     
                 operator = false;
+                btnEqualsControl = true;
             }
         });
 
@@ -248,12 +249,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void numberClick(String number) {
         if (this.number == null) this.number = number;
-        else this.number += number;
+        else if (btnEqualsControl) {
+            firstNumber = 0;
+            lastNumber = 0;
+            this.number = number;
+        } else this.number += number;
 
         tvResult.setText(this.number);
         operator = true;
         btnACControl = false;
         btnDEL.setClickable(true);
+        btnEqualsControl = false;
     }
 
     private void plus() {
