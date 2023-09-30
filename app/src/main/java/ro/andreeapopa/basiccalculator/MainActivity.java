@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     DecimalFormat decimalFormat = new DecimalFormat("######.######");
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,12 +160,17 @@ public class MainActivity extends AppCompatActivity {
                 operator = false;
             }
         });
+
         btnPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (number == null) number = "0.";
+                else number += ".";
 
+                tvResult.setText(number);
             }
         });
+
         btnAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,7 +208,9 @@ public class MainActivity extends AppCompatActivity {
         btnDivide = findViewById(R.id.btnDivide);
         btnMultiply = findViewById(R.id.btnMultiply);
         btnEquals = findViewById(R.id.btnEquals);
+
         btnPoint = findViewById(R.id.btnPoint);
+
         btnAC = findViewById(R.id.btnAC);
         btnDEL = findViewById(R.id.btnDEL);
 
