@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     DecimalFormat decimalFormat = new DecimalFormat("######.######");
 
     String history, currentResult;
+    boolean point = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,10 +179,13 @@ public class MainActivity extends AppCompatActivity {
         btnPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (number == null) number = "0.";
-                else number += ".";
+                if(point) {
+                    if (number == null) number = "0.";
+                    else number += ".";
+                }
 
                 tvResult.setText(number);
+                point = false;
             }
         });
 
@@ -194,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 tvHistory.setText("");
                 firstNumber = 0;
                 lastNumber = 0;
+                point = true;
             }
         });
         btnDEL.setOnClickListener(new View.OnClickListener() {
@@ -245,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
         firstNumber += lastNumber;
 
         tvResult.setText(decimalFormat.format(firstNumber));
+        point = true;
     }
 
     private void minus() {
@@ -254,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
             firstNumber -= lastNumber;
         }
         tvResult.setText(decimalFormat.format(firstNumber));
+        point = true;
     }
 
     private void multiply() {
@@ -266,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
             firstNumber *= lastNumber;
         }
         tvResult.setText(decimalFormat.format(firstNumber));
+        point = true;
     }
 
     public void divide() {
@@ -277,5 +285,6 @@ public class MainActivity extends AppCompatActivity {
             firstNumber /= lastNumber;
         }
         tvResult.setText(decimalFormat.format(firstNumber));
+        point = true;
     }
 }
