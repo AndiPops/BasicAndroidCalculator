@@ -15,17 +15,18 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatButton btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine,
                             btnPlus, btnMinus, btnMultiply, btnDivide, btnEquals, btnPoint, btnAC, btnDEL;
     private String number = null;
+    String status = null;
+    String history, currentResult;
 
     double firstNumber = 0;
     double lastNumber = 0;
 
-    String status = null;
     boolean operator = false;
+    boolean point = true;
+    boolean btnACControl = true;
 
     DecimalFormat decimalFormat = new DecimalFormat("######.######");
 
-    String history, currentResult;
-    boolean point = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,13 +200,21 @@ public class MainActivity extends AppCompatActivity {
                 firstNumber = 0;
                 lastNumber = 0;
                 point = true;
+                btnACControl = true;
             }
         });
         btnDEL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                number = number.substring(0, number.length()-1);
-                tvResult.setText(number);
+                if (btnACControl) tvResult.setText("0");
+                else {
+                    number = number.substring(0, number.length() - 1);
+                    if (number.length() == 0) {
+                        btnDEL.setClickable(false);
+                    } else if (number.contains(".")) point = false;
+                    else point = true;
+                    tvResult.setText(number);
+                }
             }
         });
     }
@@ -243,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
 
         tvResult.setText(this.number);
         operator = true;
+        btnACControl = false;
+        btnDEL.setClickable(true);
     }
 
     private void plus() {
@@ -266,12 +277,9 @@ public class MainActivity extends AppCompatActivity {
     private void multiply() {
         if (firstNumber == 0) {
             firstNumber = 1;
-            lastNumber = Double.parseDouble(tvResult.getText().toString());
-            firstNumber *= lastNumber;
-        } else {
-            lastNumber = Double.parseDouble(tvResult.getText().toString());
-            firstNumber *= lastNumber;
         }
+        lastNumber = Double.parseDouble(tvResult.getText().toString());
+        firstNumber *= lastNumber;
         tvResult.setText(decimalFormat.format(firstNumber));
         point = true;
     }
