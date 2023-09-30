@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvResult, tvHistory;
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     String status = null;
     boolean operator = false;
+
+    DecimalFormat decimalFormat = new DecimalFormat("######.######");
 
 
     @Override
@@ -168,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void instantiateElements() {
@@ -207,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
     private void plus() {
         lastNumber = Double.parseDouble(tvResult.getText().toString());
         firstNumber += lastNumber;
-        tvResult.setText("" + firstNumber);
+
+        tvResult.setText(decimalFormat.format(firstNumber));
     }
 
     private void minus() {
@@ -216,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
             lastNumber = Double.parseDouble(tvResult.getText().toString());
             firstNumber -= lastNumber;
         }
+        tvResult.setText(decimalFormat.format(firstNumber));
     }
 
     private void multiply() {
@@ -227,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             lastNumber = Double.parseDouble(tvResult.getText().toString());
             firstNumber *= lastNumber;
         }
-        tvResult.setText("" + firstNumber);
+        tvResult.setText(decimalFormat.format(firstNumber));
     }
 
     public void divide() {
@@ -238,6 +243,6 @@ public class MainActivity extends AppCompatActivity {
             lastNumber = Double.parseDouble(tvResult.getText().toString());
             firstNumber /= lastNumber;
         }
-        tvResult.setText(""+firstNumber);
+        tvResult.setText(decimalFormat.format(firstNumber));
     }
 }
