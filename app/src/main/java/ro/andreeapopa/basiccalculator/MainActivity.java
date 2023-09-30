@@ -170,13 +170,19 @@ public class MainActivity extends AppCompatActivity {
         btnAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                number = null;
+                status = null;
+                tvResult.setText("0");
+                tvHistory.setText("");
+                firstNumber = 0;
+                lastNumber = 0;
             }
         });
         btnDEL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                number = number.substring(0, number.length()-1);
+                tvResult.setText(number);
             }
         });
     }
