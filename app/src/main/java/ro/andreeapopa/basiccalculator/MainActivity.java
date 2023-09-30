@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvResult, tvHistory;
     private AppCompatButton btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine,
-                            btnMinus, btnPlus, btnDivide, btnMultiply, btnEquals, btnPoint, btnAC, btnDEL;
+                            btnPlus, btnMinus, btnMultiply, btnDivide, btnEquals, btnPoint, btnAC, btnDEL;
     private String number = null;
 
     double firstNumber = 0;
@@ -151,7 +151,14 @@ public class MainActivity extends AppCompatActivity {
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (operator)
+                    if (status == "sum") plus();
+                    else if (status == "subtraction") minus();
+                    else if (status == "multiplication") multiply();
+                    else if (status == "division") divide();
+                    else firstNumber = Double.parseDouble(tvResult.getText().toString());
+                    
+                operator = false;
             }
         });
         btnPoint.setOnClickListener(new View.OnClickListener() {
