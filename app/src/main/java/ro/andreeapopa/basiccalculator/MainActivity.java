@@ -14,6 +14,13 @@ public class MainActivity extends AppCompatActivity {
                             btnMinus, btnPlus, btnDivide, btnMultiply, btnEquals, btnPoint, btnAC, btnDEL;
     private String number = null;
 
+    double firstNumber = 0;
+    double lastNumber = 0;
+
+    String status = null;
+    boolean operator = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,29 +88,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: implement operators
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (operator) {
+                    if (status == "multiplication") multiply();
+                    else if (status == "division") divide();
+                    else if (status == "subtraction") minus();
+                    else plus();
+                }
+                status = "sum";
+                operator = false;
+                number = null;
             }
         });
-        btnDivide.setOnClickListener(new View.OnClickListener() {
+        btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (operator) {
+                    if (status == "sum") plus();
+                    else if (status == "multiplication") multiply();
+                    else if (status == "division") divide();
+                    else minus();
+                }
+                status = "subtraction";
+                operator = false;
+                number = null;
             }
         });
         btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (operator) {
+                    if (status == "sum") plus();
+                    else if (status == "subtraction") minus();
+                    else if (status == "division") divide();
+                    else multiply();
+                }
+                status = "multiplication";
+                operator = false;
+                number = null;
+            }
+        });
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (operator) {
+                    if (status == "sum") plus();
+                    else if (status == "subtraction") minus();
+                    else if (status == "multiplication") multiply();
+                    else divide();
+                }
+                status = "division";
+                operator = false;
+                number = null;
             }
         });
         btnEquals.setOnClickListener(new View.OnClickListener() {
@@ -159,9 +197,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void numberClick(String number) {
-        if(this.number == null) this.number = number;
+        if (this.number == null) this.number = number;
         else this.number += number;
 
         tvResult.setText(this.number);
+        operator = true;
+    }
+
+    private void plus() {
+        lastNumber = Double.parseDouble(tvResult.getText().toString());
+        firstNumber += lastNumber;
+        tvResult.setText("" + firstNumber);
+    }
+
+    private void minus() {
+        if (firstNumber == 0) firstNumber = Double.parseDouble(tvResult.getText().toString());
+        else {
+            lastNumber = Double.parseDouble(tvResult.getText().toString());
+            firstNumber -= lastNumber;
+        }
+    }
+
+    private void multiply() {
+        if (firstNumber == 0) {
+            firstNumber = 1;
+            lastNumber = Double.parseDouble(tvResult.getText().toString());
+            firstNumber *= lastNumber;
+        } else {
+            lastNumber = Double.parseDouble(tvResult.getText().toString());
+            firstNumber *= lastNumber;
+        }
+        tvResult.setText("" + firstNumber);
+    }
+
+    public void divide() {
+        if (firstNumber == 0) {
+            lastNumber = Double.parseDouble(tvResult.getText().toString());
+            firstNumber = lastNumber / 1;
+        } else {
+            lastNumber = Double.parseDouble(tvResult.getText().toString());
+            firstNumber /= lastNumber;
+        }
+        tvResult.setText(""+firstNumber);
     }
 }
